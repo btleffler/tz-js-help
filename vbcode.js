@@ -235,7 +235,7 @@ function dolist(theform) { // inserts list with option to have numbered or alpha
     listend = "[/list] ";
   }
   listentry = "initial";
-  while ((listentry != "") && (listentry != null)) {
+  while ((listentry != "") && (listentry != null) && (positionInfo[2] && listentry !== positionInfo[2])) {
     listentry = prompt(list_item_prompt, positionInfo[2] || '');
     if ((listentry != "") && (listentry != null)) {
       thelist = thelist+"[*]"+listentry+"\n";
