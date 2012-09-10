@@ -1,6 +1,76 @@
 // *******************************************************
 tags = new Array();
 // *******************************************************
+// NEW STUFF
+function getSelectionInfo (el) {
+  var start = 0, end = 0, normalizedValue, range,
+    textInputRange, len, endRange;
+
+  if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
+    start = el.selectionStart;
+    end = el.selectionEnd;
+  } else {
+    range = document.selection.createRange();
+
+    if (range && range.parentElement() == el) {
+      len = el.value.length;
+      normalizedValue = el.value.replace(/\r\n/g, "\n");
+
+      // Create a working TextRange that lives only in the input
+      textInputRange = el.createTextRange();
+      textInputRange.moveToBookmark(range.getBookmark());
+
+      // Check if the start and end of the selection are at the very end
+      // of the input, since moveStart/moveEnd doesn't return what we want
+      // in those cases
+      endRange = el.createTextRange();
+      endRange.collapse(false);
+
+      if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+        start = end = len;
+      } else {
+        start = -textInputRange.moveStart("character", -len);
+        start += normalizedValue.slice(0, start).split("\n").length - 1;
+
+        if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+          end = len;
+        } else {
+          end = -textInputRange.moveEnd("character", -len);
+          end += normalizedValue.slice(0, end).split("\n").length - 1;
+        }
+      }
+    }
+  }
+
+  return [ start, end ];
+};
+
+function insertAt(position, str) {
+  var isArray = typeof position.length !== "undefined",
+    start = isArray ? position[0] : position,
+    end = isArray? position[1] ? position[1] : position[0] : position,
+    input = document.vbform.message,
+    val = input.value,
+    parts = [ val.substr(0, start), str, val.substr(end) ];
+  
+  input.value = parts.join('');
+  input.focus();
+};
+
+function surroundSelection(selectionInfo, before, after) {
+  var input = document.vbform.message,
+    val = input.value,
+    parts = [
+      val.substr(0, selectionInfo[0]),
+      before + val.substr(selectionInfo[0], selectionInfo[1] - selectionInfo[0]) + after,
+      val.substr(selectionInfo[1])
+    ];
+  
+  input.value = parts.join('');
+  input.focus();
+};
+// END NEW STUFF
+
 function getarraysize(thearray) {
   for (i = 0; i < thearray.length; i++) {
     if ((thearray[i] == "undefined") || (thearray[i] == "") || (thearray[i] == null)) {
@@ -63,10 +133,18 @@ function closeall(theform) {
 }
 // *******************************************************
 function vbcode(theform,vbcode,prompttext) { // insert [x]yyy[/x] style markup
+  var positionInfo = getSelectionInfo(theform.message);
+  
+  // We have a selection, do selection-y stuff
+  if (positionInfo[1]) {
+    if (positionInfo[1] !== positionInfo[0])
+      return surroundSelection(positionInfo, '[' + vbcode + ']', "[/" + vbcode + ']');
+  }
+  
   if ((normalmode(theform)) || (vbcode=="IMG")) {
     inserttext = prompt(tag_prompt+"\n["+vbcode+"]xxx[/"+vbcode+"]",prompttext);
     if ((inserttext != null) && (inserttext != "")) {
-      theform.message.value += "["+vbcode+"]"+inserttext+"[/"+vbcode+"] ";
+      insertAt(positionInfo, "["+vbcode+"]"+inserttext+"[/"+vbcode+"]");
     }
   } else {
     donotinsert = false;
@@ -78,8 +156,8 @@ function vbcode(theform,vbcode,prompttext) { // insert [x]yyy[/x] style markup
     if (donotinsert) {
       stat("already_open");
     } else {
-      theform.message.value += "["+vbcode+"]";
       arraypush(tags,vbcode);
+      return insertAt(positionInfo, '[' + vbcode + ']');
     }
   }
   theform.message.focus();
@@ -150,8 +228,10 @@ function dolist(theform) { // inserts list with option to have numbered or alpha
 }
 // *******************************************************
 function smilie(thesmilie) {
-  document.vbform.message.value += thesmilie+" ";
-  document.vbform.message.focus();
+  var input = document.vbform.message,
+    position = getSelectionInfo(input);
+
+  insertAt(position, thesmilie);
 }
 function opensmiliewindow(x,y,sessionhash) {
   window.open("misc.php?action=getsmilies&s="+sessionhash, "smilies", "toolbar=no,scrollbars=yes,resizable=yes,width="+x+",height="+y);
