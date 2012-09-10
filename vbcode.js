@@ -43,7 +43,7 @@ function getSelectionInfo (el) {
     }
   }
 
-  return [ parseInt(start, 10), parseInt(end, 10) ];
+  return [ parseInt(start, 10), parseInt(end, 10), el.value.substr(start, end - start) ];
 }
 
 function setCursorPosition(pos) {
@@ -202,15 +202,15 @@ function namedlink(theform,thetype) { // inserts named url or email link - [url=
   var positionInfo = getSelectionInfo(theform.message),
     prompttext;
   if (thetype == "url") {
-    linktext = prompt(link_text_prompt,"");
+    linktext = prompt(link_text_prompt,positionInfo[2] || '');
     prompt_text = link_url_prompt;
     prompt_contents = "http://";
   } else if (thetype == "youtube") {
-    linktext = prompt(youtube_text_prompt,"");
+    linktext = prompt(youtube_text_prompt,positionInfo[2] || '');
     prompt_text = youtube_id_prompt;
     prompt_contents = "";
   } else {
-    linktext = prompt(link_text_prompt,"");
+    linktext = prompt(link_text_prompt,positionInfo[2] || '');
     prompt_text = link_email_prompt;
     prompt_contents = "";
   }
@@ -222,7 +222,6 @@ function namedlink(theform,thetype) { // inserts named url or email link - [url=
       insertAt(positionInfo, "["+thetype+"]"+linkurl+"[/"+thetype+"]");
     }
   }
-  theform.message.focus();
 }
 // *******************************************************
 function dolist(theform) { // inserts list with option to have numbered or alphabetical type
@@ -237,7 +236,7 @@ function dolist(theform) { // inserts list with option to have numbered or alpha
   }
   listentry = "initial";
   while ((listentry != "") && (listentry != null)) {
-    listentry = prompt(list_item_prompt, "");
+    listentry = prompt(list_item_prompt, positionInfo[2] || '');
     if ((listentry != "") && (listentry != null)) {
       thelist = thelist+"[*]"+listentry+"\n";
     }
