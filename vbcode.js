@@ -2,6 +2,7 @@
 tags = new Array();
 // *******************************************************
 // NEW STUFF
+// 
 function getSelectionInfo (el) {
   var start = 0, end = 0, normalizedValue, range,
     textInputRange, len, endRange;
@@ -42,8 +43,24 @@ function getSelectionInfo (el) {
     }
   }
 
-  return [ start, end ];
-};
+  return [ parseInt(start, 10), parseInt(end, 10) ];
+}
+
+function setCursorPosition(pos) {
+  var input = document.vbform.message,
+    range;
+
+  if (input.setSelectionRange) {
+    input.focus();
+    input.setSelectionRange(pos, pos);
+  } else {
+    range = input.createTextRange();
+    range.collapse(true);
+    range.moveEnd("character", pos);
+    range.moveStart("character", pos);
+    range.select();
+  }
+}
 
 function insertAt(position, str) {
   var isArray = typeof position.length !== "undefined",
@@ -54,8 +71,8 @@ function insertAt(position, str) {
     parts = [ val.substr(0, start), str, val.substr(end) ];
   
   input.value = parts.join('');
-  input.focus();
-};
+  setCursorPosition(start + str.length);
+}
 
 function surroundSelection(selectionInfo, before, after) {
   var input = document.vbform.message,
@@ -67,8 +84,8 @@ function surroundSelection(selectionInfo, before, after) {
     ];
   
   input.value = parts.join('');
-  input.focus();
-};
+  setCursorPosition(selectionInfo[1] + after.length);
+}
 // END NEW STUFF
 
 function getarraysize(thearray) {
