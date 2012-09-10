@@ -182,7 +182,8 @@ function fontformat(theform,thevalue,thetype) { // insert two-parameter markup -
 }
 // *******************************************************
 function namedlink(theform,thetype) { // inserts named url or email link - [url=mylink]text[/url]
-  var prompttext;
+  var positionInfo = getSelectionInfo(theform.message),
+    prompttext;
   if (thetype == "url") {
     linktext = prompt(link_text_prompt,"");
     prompt_text = link_url_prompt;
@@ -199,15 +200,16 @@ function namedlink(theform,thetype) { // inserts named url or email link - [url=
   linkurl = prompt(prompt_text,prompt_contents);
   if ((linkurl != null) && (linkurl != "")) {
     if ((linktext != null) && (linktext != "")) {
-      theform.message.value += "["+thetype+"="+linkurl+"]"+linktext+"[/"+thetype+"] ";
+      insertAt(positionInfo, "["+thetype+"="+linkurl+"]"+linktext+"[/"+thetype+"]");
     } else {
-      theform.message.value += "["+thetype+"]"+linkurl+"[/"+thetype+"] ";
+      insertAt(positionInfo, "["+thetype+"]"+linkurl+"[/"+thetype+"]");
     }
   }
   theform.message.focus();
 }
 // *******************************************************
 function dolist(theform) { // inserts list with option to have numbered or alphabetical type
+  var positionInfo = getSelectionInfo(theform.message);
   listtype = prompt(list_type_prompt, "");
   if ((listtype == "a") || (listtype == "1")) {
     thelist = "[list="+listtype+"]\n";
@@ -223,8 +225,7 @@ function dolist(theform) { // inserts list with option to have numbered or alpha
       thelist = thelist+"[*]"+listentry+"\n";
     }
   }
-  theform.message.value += thelist+listend;
-  theform.message.focus();
+  insertAt(positionInfo, thelist+listend);
 }
 // *******************************************************
 function smilie(thesmilie) {
