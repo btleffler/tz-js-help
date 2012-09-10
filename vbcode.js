@@ -84,7 +84,7 @@ function surroundSelection(selectionInfo, before, after) {
     ];
   
   input.value = parts.join('');
-  setCursorPosition(selectionInfo[1] + after.length);
+  setCursorPosition(selectionInfo[1] + before.length + after.length);
 }
 // END NEW STUFF
 
