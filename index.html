@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>vB Code Dev</title>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
+<link rel="stylesheet" type="text/css" href="http://www.tekkenzaibatsu.com//themes/huntinghawks/css/global.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="http://www.tekkenzaibatsu.com//themes/huntinghawks/css/forums.css" media="screen" />
+
+<script type="text/javascript" src="http://www.tekkenzaibatsu.com//assets/highslide.js"></script>
+<link rel="stylesheet" type="text/css" href="http://www.tekkenzaibatsu.com//themes/huntinghawks/css/highslide.css" />
+
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="/assets/ie.css" />
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="/assets/print.css" media="print" />
+<link rel="shortcut icon" href="http://www.tekkenzaibatsu.com//themes/huntinghawks/zaibatsu.ico" />
+<script language="javascript">
+<!--
+var postmaxchars = 10000;
+function validate(theform) {
+    if (theform.message.value=="") {
+        alert("Please complete the message field.");
+        return false; }
+    if (postmaxchars != 0) {
+        if (theform.message.value.length > 10000) {
+            alert("Your message is too long.\n\nReduce your message to 10000 characters.\nIt is currently "+theform.message.value.length+" characters long.");
+            return false; }
+        else { return true; }
+    } else { return true; }
+}
+function checklength(theform) {
+    if (postmaxchars != 0) { message = "\nThe maximum permitted length is 10000 characters."; }
+    else { message = ""; }
+    alert("Your message is "+theform.message.value.length+" characters long."+message);
+}
+//-->
+</script>
+</head>
+<body>
+
+<div id="content">
+            
+
+
+  
+
+<div class="outerbox">
+  <h2>Post Reply</h2>
+  <div class="subheaderbox">
+    &nbsp;
+    <table cellpadding="3" cellspacing="0" border="0" width="100%" class="medium">
+      <form enctype="multipart/form-data" action="" name="vbform" method="post" onSubmit="return validate(this)">
+
+
+<script language="Javascript" src="vbcode.js"></script>
+<script language="Javascript" src="http://www.tekkenzaibatsu.com/forums/vbcode_language.js"></script>
+<style>
+#codebuttons input { font-family: verdana, arial, helvetica; font-size: 11px; }
+#codebuttons select { font-family: verdana, arial, helvetica; font-size: 11px; }
+</style>
+
+<tr id="codebuttons">
+  <td class="firstalt" valign="top">
+    <b>vB Code</b> 
+    <span class="small">
+      <a href="misc.php?action=bbcode#buttons" target="_blank">View Codes</a><br />
+      <input type="radio" name="mode" value="0" title="Normal Mode: (alt+n)" accesskey="n" onclick="setmode(this.value)" onmouseover="stat('norm')" checked /> Normal Mode<br />
+      <input type="radio" name="mode" value="1" title="Enhanced Mode: (alt+e)" accesskey="e" onclick="setmode(this.value)" onmouseover="stat('enha')"  /> Enhanced Mode
+    </span>
+  </td>
+  <td class="firstalt">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td>
+          <input type="button" class="button" value=" B " onclick="vbcode(this.form,'B','')" onmouseover="stat('b')" title="BOLD (alt+b)" accesskey="b" >
+          <input type="button" class="button" value=" I " onclick="vbcode(this.form,'I','')" onmouseover="stat('i')" title="ITALIC (alt+i)" accesskey="i">
+          <input type="button" class="button" value=" U " onclick="vbcode(this.form,'U','')" onmouseover="stat('u')" title="UNDERLINE (alt+u)" accesskey="u" >
+          <input type="button" class="button" value="URL" title="Insert Hyperlink" onclick="namedlink(this.form,'url')" onmouseover="stat('url')">
+          <input type="button" class="button" value=" @ " title="Insert Email Address" onclick="namedlink(this.form,'email')" onmouseover="stat('email')">
+          <input type="button" class="button" value="YouTube" title="Insert YouTube Video" onclick="namedlink(this.form,'youtube')" onmouseover="stat('youtube')">
+          <input type="button" class="button" value="IMG" title="Insert Image" onclick="vbcode(this.form,'img','http://')" onmouseover="stat('img')">
+          <input type="button" class="button" value="List" title="Ordered List" accesskey="l" onclick="dolist(this.form)" onmouseover="stat('list')">
+          <input type="button" class="button" value="Quote" title="Insert Quote" onclick="vbcode(this.form,'quote','')" onmouseover="stat('quote')"><br />
+          <br />
+          <input type="text" class="bg" name="status" style="width: 260px;" value="Use these controls to insert vBcode">
+          <input type="button" class="button" value="<>" accesskey="c" title="(alt+c)" style="font-size:7pt" onclick="closetag(this.form)" onmouseover="stat('closecurrent')">
+          <input type="button" class="button" value="<>" accesskey="x" title="(alt+x)" style="font-size:7pt" onclick="closeall(this.form)" onmouseover="stat('closeall')">
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="secondalt">
+  <td valign="top">
+    <b>Your Reply</b><br />
+    <br />
+    
+    <div class="alt small">
+  <fieldset><legend>Smilies</legend>
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" class="small">
+      <tr align='center'>
+<td><a href="#" onclick="smilie(':)'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/smile.gif" alt="" title="Smiley" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':angel:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/angel.gif" alt="" title="Innocent" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':o'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/amazed.gif" alt="" title="Amazed" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':D'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/biggrin.gif" alt="" title="Big Grin" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':annoy:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/annoyed.gif" alt="" title="Annoyed" border="0" /></a>&nbsp;</td>
+</tr>
+<tr align='center'>
+<td><a href="#" onclick="smilie(':P'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/razz.gif" alt="" title="Stick Out Tongue" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':cool:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/cool.gif" alt="" title="Cool Dude" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':rolleyes:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/rolleyes.gif" alt="" title="Roll Eyes" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':mad:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/mad.gif" alt="" title="Mad" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':eek:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/eek.gif" alt="" title="Eek!!" border="0" /></a>&nbsp;</td>
+</tr>
+<tr align='center'>
+<td><a href="#" onclick="smilie(':confused:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/confused.gif" alt="" title="Confused" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':badboy:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/badboy.gif" alt="" title="Bad Boy" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':*)'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/blush.gif" alt="" title="Blush" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':chat:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/chat.gif" alt="" title="Chatty" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':china:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/chinasmile.gif" alt="" title="China Man" border="0" /></a>&nbsp;</td>
+</tr>
+<tr align='center'>
+<td><a href="#" onclick="smilie(':clown:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/clown.gif" alt="" title="Clown" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':cry:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/crybaby.gif" alt="" title="Cry Baby" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':evil:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/devil.gif" alt="" title="Evil" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':lol:'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/laughing.gif" alt="" title="Laughing Out Loud" border="0" /></a>&nbsp;</td>
+<td><a href="#" onclick="smilie(':-P'); return false;"><img src="http://www.tekkenzaibatsu.com/forums/images/smilies/angryrazz.gif" alt="" title="Angry Razz" border="0" /></a>&nbsp;</td>
+</tr>
+
+    </table>
+  </fieldset>
+</div>
+    <br />
+    <div class="btnmini btnfull"><a href="javascript:checklength(document.vbform);">Check Message Length</a></div>
+  </td>
+  <td>
+    <textarea name="message" rows="16" class="wide" wrap="virtual" tabindex="1"></textarea>
+  </td>
+</tr>
+
+      </form>
+    </table>
+  </div>
+</div>
+
+</div>
+
+
+</body>
+</html>​
